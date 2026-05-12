@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/schema.command_flow.schema.json",
+  "title": "schema.command_flow",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "use_case_ref",
+    "source_refs",
+    "stages"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "type": {
+      "const": "schema.command_flow"
+    },
+    "use_case_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "stage",
+          "occurred_at",
+          "summary"
+        ],
+        "properties": {
+          "stage": {
+            "type": "string",
+            "enum": [
+              "source_ingested",
+              "smetion_emitted",
+              "perception_accepted",
+              "command_proposed",
+              "validation_passed",
+              "approval_requested",
+              "approval_granted",
+              "command_committed",
+              "monitoring_established"
+            ]
+          },
+          "occurred_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+          },
+          "summary": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          },
+          "actor_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "smetion_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/ref"
+            },
+            "uniqueItems": true
+          },
+          "perception": {
+            "$ref": "perception.perception.schema.json"
+          },
+          "command": {
+            "$ref": "schema.command.schema.json"
+          },
+          "approval": {
+            "$ref": "governance.approval.schema.json"
+          },
+          "output_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/ref"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

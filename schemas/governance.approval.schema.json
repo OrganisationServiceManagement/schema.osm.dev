@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/governance.approval.schema.json",
+  "title": "governance.approval",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "approval_type",
+    "approval_scope",
+    "subject_ref",
+    "policy_ref",
+    "status",
+    "requested_by_ref",
+    "requested_at",
+    "decider_refs"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "type": {
+      "const": "governance.approval"
+    },
+    "canonical_key": {
+      "$ref": "common.schema.json#/$defs/canonical_key"
+    },
+    "approval_type": {
+      "$ref": "common.schema.json#/$defs/canonical_key"
+    },
+    "approval_scope": {
+      "type": "string",
+      "enum": [
+        "command_commit",
+        "risk_group_selection",
+        "plan_approval",
+        "smetion_activation",
+        "policy_exception",
+        "scope_authorisation"
+      ]
+    },
+    "use_case_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "subject_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "command_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "policy_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_required",
+        "requested",
+        "under_review",
+        "approved",
+        "rejected",
+        "expired",
+        "revoked",
+        "superseded"
+      ]
+    },
+    "requested_by_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "requested_at": {
+      "$ref": "common.schema.json#/$defs/date_time"
+    },
+    "decider_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "decision_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "decider_ref",
+          "decision",
+          "decided_at",
+          "rationale"
+        ],
+        "properties": {
+          "decider_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "rejected",
+              "abstained",
+              "changes_requested"
+            ]
+          },
+          "decided_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+          },
+          "rationale": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/markdown"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "approved_at": {
+      "$ref": "common.schema.json#/$defs/date_time"
+    },
+    "valid_until": {
+      "$ref": "common.schema.json#/$defs/date_time"
+    },
+    "rationale": {
+      "$ref": "common.schema.json#/$defs/markdown"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/markdown"
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/perception.perception.schema.json",
+  "title": "perception.perception",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "perceiver_ref",
+    "source_refs",
+    "perception_type",
+    "summary",
+    "confidence",
+    "status",
+    "observed_at"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "type": {
+      "const": "perception.perception"
+    },
+    "perceiver_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "use_case_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "smetion_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "perception_type": {
+      "$ref": "common.schema.json#/$defs/perception_type"
+    },
+    "summary": {
+      "$ref": "common.schema.json#/$defs/markdown"
+    },
+    "confidence": {
+      "$ref": "common.schema.json#/$defs/confidence"
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/claim"
+      }
+    },
+    "candidate_relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/relationship"
+      }
+    },
+    "recommended_commands": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/command_type"
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "accepted",
+        "rejected",
+        "superseded",
+        "escalated"
+      ]
+    },
+    "validation_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "observed_at": {
+      "$ref": "common.schema.json#/$defs/date_time"
+    }
+  },
+  "additionalProperties": false
+}

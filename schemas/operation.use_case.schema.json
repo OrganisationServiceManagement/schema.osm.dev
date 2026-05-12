@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/operation.use_case.schema.json",
+  "title": "operation.use_case",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "canonical_key",
+    "name",
+    "description",
+    "domain_refs",
+    "trigger_types",
+    "input_types",
+    "output_types",
+    "permitted_commands",
+    "validation_profile_ref",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "type": {
+      "const": "operation.use_case"
+    },
+    "canonical_key": {
+      "$ref": "common.schema.json#/$defs/canonical_key"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "$ref": "common.schema.json#/$defs/markdown"
+    },
+    "domain_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/domain_ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "trigger_types": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/trigger_type"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "actor_roles": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "agent_roles": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "input_types": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/type_ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "output_types": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/type_ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "permitted_commands": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/command_type"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "validation_profile_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "evidence_expectations": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "handoff_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "from_ref",
+          "to_ref",
+          "trigger",
+          "expected_output_types"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "from_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "to_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "trigger": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          },
+          "expected_output_types": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/type_ref"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "escalation_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "approval_policy_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "success_criteria": {
+      "$ref": "common.schema.json#/$defs/markdown"
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "failure_type",
+          "response"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "failure_type": {
+            "$ref": "common.schema.json#/$defs/canonical_key"
+          },
+          "response": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          },
+          "escalation_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "parameter_schema": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "value_type",
+          "required",
+          "purpose"
+        ],
+        "properties": {
+          "name": {
+            "$ref": "common.schema.json#/$defs/canonical_key"
+          },
+          "value_type": {
+            "type": "string",
+            "enum": [
+              "string",
+              "markdown",
+              "boolean",
+              "integer",
+              "number",
+              "enum",
+              "ref",
+              "ref_array",
+              "type_ref_array"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "purpose": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          },
+          "allowed_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycle_status"
+    }
+  },
+  "additionalProperties": false
+}

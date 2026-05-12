@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/automation.smetion.schema.json",
+  "title": "automation.smetion",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "canonical_key",
+    "name",
+    "description",
+    "sme_domain_refs",
+    "source_type_refs",
+    "output_perception_types",
+    "trigger_types",
+    "transform_ref",
+    "validation_profile_ref",
+    "owner_ref",
+    "status"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "type": {
+      "const": "automation.smetion"
+    },
+    "canonical_key": {
+      "$ref": "common.schema.json#/$defs/canonical_key"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "$ref": "common.schema.json#/$defs/markdown"
+    },
+    "sme_domain_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/domain_ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "source_type_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/type_ref"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "output_perception_types": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/perception_type"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "trigger_types": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/trigger_type"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "transform_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "normalisation_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "classification_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "correlation_rules": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "confidence_model": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "validation_profile_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "owner_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/lifecycle_status"
+    }
+  },
+  "additionalProperties": false
+}

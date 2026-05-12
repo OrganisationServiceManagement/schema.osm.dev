@@ -1,0 +1,198 @@
+{
+  "id": "44444444-0000-4000-8000-000000000002",
+  "type": "schema.command",
+  "canonical_key": "command.propose_relative_risk_group.customer_portal_exposure.20260512.001",
+  "command_type": "schema.command.propose_relative_risk_group",
+  "use_case_ref": {
+    "type": "operation.use_case",
+    "id": "11111111-0000-4000-8000-000000000002",
+    "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+    "name": "End-to-end penetration testing and technical vulnerability management"
+  },
+  "perception_refs": [
+    {
+      "type": "perception.perception",
+      "id": "33333333-0000-4000-8000-000000000001",
+      "canonical_key": "perception.customer_portal_tls_vulnerability.20260512.001",
+      "name": "Customer portal TLS vulnerability perception"
+    }
+  ],
+  "source_refs": [
+    {
+      "type": "schema.command",
+      "id": "44444444-0000-4000-8000-000000000001",
+      "canonical_key": "command.create_finding.customer_portal_tls.20260512.001",
+      "name": "Create customer portal TLS finding"
+    }
+  ],
+  "target_refs": [
+    {
+      "type": "risk.relative_group",
+      "id": "risk_group.customer_portal_external_exposure.2026q2",
+      "canonical_key": "risk_group.customer_portal_external_exposure.2026q2",
+      "name": "Customer portal external exposure risk group"
+    }
+  ],
+  "requested_by_ref": {
+    "type": "agent.agent",
+    "id": "agent.business_analyst.security.001",
+    "canonical_key": "agent.business_analyst.security.001",
+    "name": "Security BusinessAnalystAgent"
+  },
+  "approval_requirement": "human_required",
+  "approval_policy_ref": {
+    "type": "governance.policy",
+    "id": "policy.penetration_testing_tvm.approval.v1",
+    "canonical_key": "policy.penetration_testing_tvm.approval.v1",
+    "name": "Penetration testing and TVM approval policy"
+  },
+  "preconditions": [
+    "A candidate vulnerability perception exists and has not been rejected.",
+    "The proposed risk group has named deciders and is tied to the authorised scope.",
+    "Mitigation planning will remain blocked until the risk group is selected and approved."
+  ],
+  "validation_results": [
+    {
+      "validation_type": "precondition",
+      "status": "passed",
+      "summary": "The perception, scope, deciders, and affected endpoint references are present."
+    },
+    {
+      "validation_type": "schema",
+      "status": "passed",
+      "summary": "The proposed risk.relative_group payload includes scope, subjects, basis, relative priority, confidence, status, and decider references."
+    },
+    {
+      "validation_type": "policy",
+      "status": "passed",
+      "summary": "Policy requires human approval before mitigation planning can proceed."
+    },
+    {
+      "validation_type": "impact",
+      "status": "passed",
+      "summary": "The command stages a candidate risk group and does not approve any mitigation plan."
+    }
+  ],
+  "impact_summary": "Creates a candidate relative risk group for the customer portal external exposure path and routes it to decider approval before mitigation planning.",
+  "staged_diff": {
+    "creates": [
+      {
+        "type": "risk.relative_group",
+        "id": "risk_group.customer_portal_external_exposure.2026q2",
+        "name": "Customer portal external exposure risk group",
+        "status": "under_review",
+        "relative_priority": 0.82
+      }
+    ]
+  },
+  "state_history": [
+    {
+      "state": "proposed",
+      "changed_at": "2026-05-12T00:45:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.business_analyst.security.001",
+        "canonical_key": "agent.business_analyst.security.001",
+        "name": "Security BusinessAnalystAgent"
+      }
+    },
+    {
+      "state": "precondition_validated",
+      "changed_at": "2026-05-12T00:46:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.tester.security.001",
+        "canonical_key": "agent.tester.security.001",
+        "name": "Security TestAgent"
+      }
+    },
+    {
+      "state": "schema_validated",
+      "changed_at": "2026-05-12T00:47:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.tester.security.001",
+        "canonical_key": "agent.tester.security.001",
+        "name": "Security TestAgent"
+      }
+    },
+    {
+      "state": "policy_validated",
+      "changed_at": "2026-05-12T00:48:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      }
+    },
+    {
+      "state": "impact_analysed",
+      "changed_at": "2026-05-12T00:49:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      }
+    },
+    {
+      "state": "approval_required",
+      "changed_at": "2026-05-12T00:50:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      },
+      "reason": "Mitigation planning requires decider-approved risk group selection."
+    }
+  ],
+  "status": "approval_required",
+  "created_at": "2026-05-12T00:45:00Z",
+  "payload": {
+    "object_type": "risk.relative_group",
+    "proposed_object": {
+      "id": "risk_group.customer_portal_external_exposure.2026q2",
+      "name": "Customer portal external exposure risk group",
+      "scope_ref": {
+        "type": "operation.scope",
+        "id": "scope.customer_portal_external_assessment.2026q2",
+        "canonical_key": "scope.customer_portal_external_assessment.2026q2",
+        "name": "Customer portal external assessment scope"
+      },
+      "subject_refs": [
+        {
+          "type": "asset.application",
+          "id": "asset.application.customer_portal",
+          "canonical_key": "asset.application.customer_portal",
+          "name": "Customer portal"
+        },
+        {
+          "type": "asset.external_endpoint",
+          "id": "asset.endpoint.customer_portal_https",
+          "canonical_key": "asset.endpoint.customer_portal_https",
+          "name": "Customer portal HTTPS endpoint"
+        }
+      ],
+      "basis": "Externally reachable customer portal endpoint has a high-severity vulnerability perception from black-box interaction evidence. The exposure path and remediation dependency are shared across portal service ownership and ingress configuration.",
+      "relative_priority": 0.82,
+      "confidence": 0.84,
+      "status": "under_review",
+      "decider_refs": [
+        {
+          "type": "identity.person",
+          "id": "person.security_decider.001",
+          "canonical_key": "person.security_decider.001",
+          "name": "Security Decider"
+        },
+        {
+          "type": "identity.person",
+          "id": "person.service_owner.customer_portal",
+          "canonical_key": "person.service_owner.customer_portal",
+          "name": "Customer Portal Service Owner"
+        }
+      ]
+    }
+  }
+}

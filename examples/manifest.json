@@ -1,0 +1,28 @@
+{
+  "validations": [
+    {
+      "instance": "profiles/penetration-testing-technical-vulnerability-management.profile.json",
+      "schema": "schemas/operation.use_case_profile.schema.json"
+    },
+    {
+      "instance": "examples/penetration-testing-tvm/01-vulnerability-perception.json",
+      "schema": "schemas/perception.perception.schema.json"
+    },
+    {
+      "instance": "examples/penetration-testing-tvm/02-create-finding-command.json",
+      "schema": "schemas/schema.command.schema.json"
+    },
+    {
+      "instance": "examples/penetration-testing-tvm/03-risk-group-command.json",
+      "schema": "schemas/schema.command.schema.json"
+    },
+    {
+      "instance": "examples/penetration-testing-tvm/04-risk-group-approval.json",
+      "schema": "schemas/governance.approval.schema.json"
+    },
+    {
+      "instance": "examples/penetration-testing-tvm/perception-to-command-flow.json",
+      "schema": "schemas/schema.command_flow.schema.json"
+    }
+  ]
+}

@@ -1,0 +1,397 @@
+{
+  "id": "66666666-0000-4000-8000-000000000001",
+  "type": "schema.command_flow",
+  "use_case_ref": {
+    "type": "operation.use_case",
+    "id": "11111111-0000-4000-8000-000000000002",
+    "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+    "name": "End-to-end penetration testing and technical vulnerability management"
+  },
+  "source_refs": [
+    {
+      "type": "telemetry.vulnerability_finding",
+      "id": "finding.assetsInteractor.blackbox.20260512.001",
+      "canonical_key": "finding.assetsInteractor.blackbox.20260512.001",
+      "name": "Black-box TLS endpoint vulnerability finding"
+    },
+    {
+      "type": "telemetry.interaction_result",
+      "id": "interaction.assetsInteractor.blackbox.20260512.001",
+      "canonical_key": "interaction.assetsInteractor.blackbox.20260512.001",
+      "name": "Black-box HTTPS probe result"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "source_ingested",
+      "occurred_at": "2026-05-12T00:29:00Z",
+      "summary": "assetsInteractor emitted a black-box vulnerability finding and interaction result for an authorised customer portal endpoint.",
+      "actor_ref": {
+        "type": "agent.agent",
+        "id": "agent.scout.security.001",
+        "canonical_key": "agent.scout.security.001",
+        "name": "Security ScoutAgent"
+      },
+      "source_refs": [
+        {
+          "type": "telemetry.vulnerability_finding",
+          "id": "finding.assetsInteractor.blackbox.20260512.001",
+          "canonical_key": "finding.assetsInteractor.blackbox.20260512.001",
+          "name": "Black-box TLS endpoint vulnerability finding"
+        }
+      ]
+    },
+    {
+      "stage": "smetion_emitted",
+      "occurred_at": "2026-05-12T00:30:00Z",
+      "summary": "The black-box smetion translated source records into a candidate vulnerability perception with recommended commands.",
+      "smetion_ref": {
+        "type": "automation.smetion",
+        "id": "22222222-0000-4000-8000-000000000010",
+        "canonical_key": "smetion.assetsInteractor.blackbox",
+        "name": "assetsInteractor black-box smetion"
+      },
+      "perception": {
+        "id": "33333333-0000-4000-8000-000000000001",
+        "type": "perception.perception",
+        "perceiver_ref": {
+          "type": "automation.smetion",
+          "id": "22222222-0000-4000-8000-000000000010",
+          "canonical_key": "smetion.assetsInteractor.blackbox",
+          "name": "assetsInteractor black-box smetion"
+        },
+        "source_refs": [
+          {
+            "type": "telemetry.vulnerability_finding",
+            "id": "finding.assetsInteractor.blackbox.20260512.001",
+            "canonical_key": "finding.assetsInteractor.blackbox.20260512.001",
+            "name": "Black-box TLS endpoint vulnerability finding"
+          }
+        ],
+        "use_case_ref": {
+          "type": "operation.use_case",
+          "id": "11111111-0000-4000-8000-000000000002",
+          "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+          "name": "End-to-end penetration testing and technical vulnerability management"
+        },
+        "smetion_ref": {
+          "type": "automation.smetion",
+          "id": "22222222-0000-4000-8000-000000000010",
+          "canonical_key": "smetion.assetsInteractor.blackbox",
+          "name": "assetsInteractor black-box smetion"
+        },
+        "perception_type": "perception.vulnerability_detected",
+        "summary": "Black-box interaction identified an internet-facing HTTPS endpoint with a scanner-confirmed vulnerability and sufficient evidence to propose an assurance finding and candidate relative risk group.",
+        "confidence": 0.86,
+        "claims": [
+          {
+            "claim_type": "claim.affected_asset",
+            "subject_ref": {
+              "type": "asset.external_endpoint",
+              "id": "asset.endpoint.customer_portal_https",
+              "canonical_key": "asset.endpoint.customer_portal_https",
+              "name": "Customer portal HTTPS endpoint"
+            },
+            "predicate": "has_vulnerability",
+            "object_ref": {
+              "type": "risk.vulnerability",
+              "id": "vulnerability.tls_weak_configuration.customer_portal",
+              "canonical_key": "vulnerability.tls_weak_configuration.customer_portal",
+              "name": "Customer portal TLS weak configuration"
+            },
+            "confidence": 0.86
+          }
+        ],
+        "recommended_commands": [
+          "schema.command.create_finding",
+          "schema.command.propose_relative_risk_group",
+          "schema.command.request_human_approval"
+        ],
+        "status": "candidate",
+        "observed_at": "2026-05-12T00:30:00Z"
+      },
+      "output_refs": [
+        {
+          "type": "perception.perception",
+          "id": "33333333-0000-4000-8000-000000000001",
+          "canonical_key": "perception.customer_portal_tls_vulnerability.20260512.001",
+          "name": "Customer portal TLS vulnerability perception"
+        }
+      ]
+    },
+    {
+      "stage": "command_proposed",
+      "occurred_at": "2026-05-12T00:36:00Z",
+      "summary": "ConceptAgent proposed a command to create an assurance finding without mutating canonical asset metadata.",
+      "actor_ref": {
+        "type": "agent.agent",
+        "id": "agent.concept.security.001",
+        "canonical_key": "agent.concept.security.001",
+        "name": "Security ConceptAgent"
+      },
+      "command": {
+        "id": "44444444-0000-4000-8000-000000000001",
+        "type": "schema.command",
+        "canonical_key": "command.create_finding.customer_portal_tls.20260512.001",
+        "command_type": "schema.command.create_finding",
+        "use_case_ref": {
+          "type": "operation.use_case",
+          "id": "11111111-0000-4000-8000-000000000002",
+          "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+          "name": "End-to-end penetration testing and technical vulnerability management"
+        },
+        "perception_refs": [
+          {
+            "type": "perception.perception",
+            "id": "33333333-0000-4000-8000-000000000001",
+            "canonical_key": "perception.customer_portal_tls_vulnerability.20260512.001",
+            "name": "Customer portal TLS vulnerability perception"
+          }
+        ],
+        "requested_by_ref": {
+          "type": "agent.agent",
+          "id": "agent.concept.security.001",
+          "canonical_key": "agent.concept.security.001",
+          "name": "Security ConceptAgent"
+        },
+        "approval_requirement": "policy_required",
+        "impact_summary": "Creates an assurance finding candidate only.",
+        "status": "staged",
+        "created_at": "2026-05-12T00:36:00Z",
+        "payload": {
+          "object_type": "assurance.finding",
+          "proposed_object_ref": {
+            "type": "assurance.finding",
+            "id": "finding.assurance.customer_portal_tls.20260512.001",
+            "canonical_key": "finding.assurance.customer_portal_tls.20260512.001",
+            "name": "Customer portal TLS vulnerability finding"
+          }
+        }
+      },
+      "output_refs": [
+        {
+          "type": "schema.command",
+          "id": "44444444-0000-4000-8000-000000000001",
+          "canonical_key": "command.create_finding.customer_portal_tls.20260512.001",
+          "name": "Create customer portal TLS finding"
+        }
+      ]
+    },
+    {
+      "stage": "approval_requested",
+      "occurred_at": "2026-05-12T00:50:00Z",
+      "summary": "A proposed relative risk group reached the human approval gate before mitigation planning.",
+      "actor_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      },
+      "command": {
+        "id": "44444444-0000-4000-8000-000000000002",
+        "type": "schema.command",
+        "canonical_key": "command.propose_relative_risk_group.customer_portal_exposure.20260512.001",
+        "command_type": "schema.command.propose_relative_risk_group",
+        "use_case_ref": {
+          "type": "operation.use_case",
+          "id": "11111111-0000-4000-8000-000000000002",
+          "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+          "name": "End-to-end penetration testing and technical vulnerability management"
+        },
+        "perception_refs": [
+          {
+            "type": "perception.perception",
+            "id": "33333333-0000-4000-8000-000000000001",
+            "canonical_key": "perception.customer_portal_tls_vulnerability.20260512.001",
+            "name": "Customer portal TLS vulnerability perception"
+          }
+        ],
+        "requested_by_ref": {
+          "type": "agent.agent",
+          "id": "agent.business_analyst.security.001",
+          "canonical_key": "agent.business_analyst.security.001",
+          "name": "Security BusinessAnalystAgent"
+        },
+        "approval_requirement": "human_required",
+        "approval_policy_ref": {
+          "type": "governance.policy",
+          "id": "policy.penetration_testing_tvm.approval.v1",
+          "canonical_key": "policy.penetration_testing_tvm.approval.v1",
+          "name": "Penetration testing and TVM approval policy"
+        },
+        "impact_summary": "Creates a candidate risk group and blocks mitigation planning until approved.",
+        "status": "approval_required",
+        "created_at": "2026-05-12T00:45:00Z",
+        "payload": {
+          "object_type": "risk.relative_group",
+          "proposed_object_ref": {
+            "type": "risk.relative_group",
+            "id": "risk_group.customer_portal_external_exposure.2026q2",
+            "canonical_key": "risk_group.customer_portal_external_exposure.2026q2",
+            "name": "Customer portal external exposure risk group"
+          }
+        }
+      },
+      "approval": {
+        "id": "55555555-0000-4000-8000-000000000002",
+        "type": "governance.approval",
+        "canonical_key": "approval.request.risk_group.customer_portal_external_exposure.2026q2",
+        "approval_type": "approval.risk_group_selection",
+        "approval_scope": "risk_group_selection",
+        "use_case_ref": {
+          "type": "operation.use_case",
+          "id": "11111111-0000-4000-8000-000000000002",
+          "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+          "name": "End-to-end penetration testing and technical vulnerability management"
+        },
+        "subject_ref": {
+          "type": "risk.relative_group",
+          "id": "risk_group.customer_portal_external_exposure.2026q2",
+          "canonical_key": "risk_group.customer_portal_external_exposure.2026q2",
+          "name": "Customer portal external exposure risk group"
+        },
+        "policy_ref": {
+          "type": "governance.policy",
+          "id": "policy.penetration_testing_tvm.approval.v1",
+          "canonical_key": "policy.penetration_testing_tvm.approval.v1",
+          "name": "Penetration testing and TVM approval policy"
+        },
+        "status": "requested",
+        "requested_by_ref": {
+          "type": "agent.agent",
+          "id": "agent.operator.security.001",
+          "canonical_key": "agent.operator.security.001",
+          "name": "Security OperatorAgent"
+        },
+        "requested_at": "2026-05-12T00:50:00Z",
+        "decider_refs": [
+          {
+            "type": "identity.person",
+            "id": "person.security_decider.001",
+            "canonical_key": "person.security_decider.001",
+            "name": "Security Decider"
+          }
+        ]
+      }
+    },
+    {
+      "stage": "approval_granted",
+      "occurred_at": "2026-05-12T01:08:00Z",
+      "summary": "Deciders approved the selected relative risk group, allowing mitigation planning to begin without approving every downstream plan.",
+      "approval": {
+        "id": "55555555-0000-4000-8000-000000000001",
+        "type": "governance.approval",
+        "canonical_key": "approval.risk_group.customer_portal_external_exposure.2026q2",
+        "approval_type": "approval.risk_group_selection",
+        "approval_scope": "risk_group_selection",
+        "use_case_ref": {
+          "type": "operation.use_case",
+          "id": "11111111-0000-4000-8000-000000000002",
+          "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+          "name": "End-to-end penetration testing and technical vulnerability management"
+        },
+        "subject_ref": {
+          "type": "risk.relative_group",
+          "id": "risk_group.customer_portal_external_exposure.2026q2",
+          "canonical_key": "risk_group.customer_portal_external_exposure.2026q2",
+          "name": "Customer portal external exposure risk group"
+        },
+        "policy_ref": {
+          "type": "governance.policy",
+          "id": "policy.penetration_testing_tvm.approval.v1",
+          "canonical_key": "policy.penetration_testing_tvm.approval.v1",
+          "name": "Penetration testing and TVM approval policy"
+        },
+        "status": "approved",
+        "requested_by_ref": {
+          "type": "agent.agent",
+          "id": "agent.operator.security.001",
+          "canonical_key": "agent.operator.security.001",
+          "name": "Security OperatorAgent"
+        },
+        "requested_at": "2026-05-12T00:50:00Z",
+        "decider_refs": [
+          {
+            "type": "identity.person",
+            "id": "person.security_decider.001",
+            "canonical_key": "person.security_decider.001",
+            "name": "Security Decider"
+          }
+        ],
+        "decision_records": [
+          {
+            "decider_ref": {
+              "type": "identity.person",
+              "id": "person.security_decider.001",
+              "canonical_key": "person.security_decider.001",
+              "name": "Security Decider"
+            },
+            "decision": "approved",
+            "decided_at": "2026-05-12T01:05:00Z",
+            "rationale": "The evidence is sufficient to select this group for mitigation planning."
+          }
+        ],
+        "approved_at": "2026-05-12T01:08:00Z",
+        "rationale": "The selected group represents the most immediate externally observable exposure path in the authorised scope."
+      },
+      "output_refs": [
+        {
+          "type": "governance.approval",
+          "id": "55555555-0000-4000-8000-000000000001",
+          "canonical_key": "approval.risk_group.customer_portal_external_exposure.2026q2",
+          "name": "Customer portal external exposure risk group approval"
+        }
+      ]
+    },
+    {
+      "stage": "command_committed",
+      "occurred_at": "2026-05-12T01:10:00Z",
+      "summary": "The approved risk group command can be committed, unblocking mitigation activity generation and plan design.",
+      "command": {
+        "id": "44444444-0000-4000-8000-000000000003",
+        "type": "schema.command",
+        "canonical_key": "command.approve_risk_group.customer_portal_exposure.20260512.001",
+        "command_type": "schema.command.approve_risk_group",
+        "use_case_ref": {
+          "type": "operation.use_case",
+          "id": "11111111-0000-4000-8000-000000000002",
+          "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+          "name": "End-to-end penetration testing and technical vulnerability management"
+        },
+        "source_refs": [
+          {
+            "type": "governance.approval",
+            "id": "55555555-0000-4000-8000-000000000001",
+            "canonical_key": "approval.risk_group.customer_portal_external_exposure.2026q2",
+            "name": "Customer portal external exposure risk group approval"
+          }
+        ],
+        "requested_by_ref": {
+          "type": "agent.agent",
+          "id": "agent.operator.security.001",
+          "canonical_key": "agent.operator.security.001",
+          "name": "Security OperatorAgent"
+        },
+        "approval_requirement": "human_required",
+        "approval_ref": {
+          "type": "governance.approval",
+          "id": "55555555-0000-4000-8000-000000000001",
+          "canonical_key": "approval.risk_group.customer_portal_external_exposure.2026q2",
+          "name": "Customer portal external exposure risk group approval"
+        },
+        "impact_summary": "Changes the relative risk group status from selected to approved and allows mitigation planning against the group.",
+        "status": "committed",
+        "created_at": "2026-05-12T01:10:00Z",
+        "payload": {
+          "target_ref": {
+            "type": "risk.relative_group",
+            "id": "risk_group.customer_portal_external_exposure.2026q2",
+            "canonical_key": "risk_group.customer_portal_external_exposure.2026q2",
+            "name": "Customer portal external exposure risk group"
+          },
+          "new_status": "approved"
+        }
+      }
+    }
+  ]
+}

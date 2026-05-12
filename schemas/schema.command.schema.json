@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/schema.command.schema.json",
+  "title": "schema.command",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "command_type",
+    "use_case_ref",
+    "requested_by_ref",
+    "status",
+    "created_at",
+    "payload"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "common.schema.json#/$defs/uuid"
+    },
+    "type": {
+      "const": "schema.command"
+    },
+    "canonical_key": {
+      "$ref": "common.schema.json#/$defs/canonical_key"
+    },
+    "command_type": {
+      "$ref": "common.schema.json#/$defs/command_type"
+    },
+    "use_case_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "perception_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "target_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/ref"
+      },
+      "uniqueItems": true
+    },
+    "requested_by_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "approval_requirement": {
+      "type": "string",
+      "enum": [
+        "not_required",
+        "policy_required",
+        "human_required"
+      ]
+    },
+    "approval_policy_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "approval_ref": {
+      "$ref": "common.schema.json#/$defs/ref"
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/markdown"
+      }
+    },
+    "validation_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "validation_type",
+          "status",
+          "summary"
+        ],
+        "properties": {
+          "validation_type": {
+            "type": "string",
+            "enum": [
+              "precondition",
+              "schema",
+              "policy",
+              "impact"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_run",
+              "passed",
+              "failed",
+              "warning"
+            ]
+          },
+          "summary": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/ref"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "impact_summary": {
+      "$ref": "common.schema.json#/$defs/markdown"
+    },
+    "staged_diff": {
+      "type": "object",
+      "properties": {
+        "creates": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "updates": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/relationship"
+          }
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "state_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "state",
+          "changed_at",
+          "changed_by_ref"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "precondition_validated",
+              "schema_validated",
+              "policy_validated",
+              "impact_analysed",
+              "staged",
+              "approval_required",
+              "approved",
+              "rejected",
+              "committed",
+              "failed",
+              "cancelled",
+              "superseded"
+            ]
+          },
+          "changed_at": {
+            "$ref": "common.schema.json#/$defs/date_time"
+          },
+          "changed_by_ref": {
+            "$ref": "common.schema.json#/$defs/ref"
+          },
+          "reason": {
+            "$ref": "common.schema.json#/$defs/markdown"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "precondition_validated",
+        "schema_validated",
+        "policy_validated",
+        "impact_analysed",
+        "staged",
+        "approval_required",
+        "approved",
+        "rejected",
+        "committed",
+        "failed",
+        "cancelled",
+        "superseded"
+      ]
+    },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/date_time"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

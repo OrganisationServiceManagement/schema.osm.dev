@@ -1,0 +1,192 @@
+{
+  "id": "44444444-0000-4000-8000-000000000001",
+  "type": "schema.command",
+  "canonical_key": "command.create_finding.customer_portal_tls.20260512.001",
+  "command_type": "schema.command.create_finding",
+  "use_case_ref": {
+    "type": "operation.use_case",
+    "id": "11111111-0000-4000-8000-000000000002",
+    "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+    "name": "End-to-end penetration testing and technical vulnerability management"
+  },
+  "perception_refs": [
+    {
+      "type": "perception.perception",
+      "id": "33333333-0000-4000-8000-000000000001",
+      "canonical_key": "perception.customer_portal_tls_vulnerability.20260512.001",
+      "name": "Customer portal TLS vulnerability perception"
+    }
+  ],
+  "source_refs": [
+    {
+      "type": "telemetry.vulnerability_finding",
+      "id": "finding.assetsInteractor.blackbox.20260512.001",
+      "canonical_key": "finding.assetsInteractor.blackbox.20260512.001",
+      "name": "Black-box TLS endpoint vulnerability finding"
+    }
+  ],
+  "target_refs": [
+    {
+      "type": "asset.external_endpoint",
+      "id": "asset.endpoint.customer_portal_https",
+      "canonical_key": "asset.endpoint.customer_portal_https",
+      "name": "Customer portal HTTPS endpoint"
+    }
+  ],
+  "requested_by_ref": {
+    "type": "agent.agent",
+    "id": "agent.concept.security.001",
+    "canonical_key": "agent.concept.security.001",
+    "name": "Security ConceptAgent"
+  },
+  "approval_requirement": "policy_required",
+  "approval_policy_ref": {
+    "type": "governance.policy",
+    "id": "policy.penetration_testing_tvm.approval.v1",
+    "canonical_key": "policy.penetration_testing_tvm.approval.v1",
+    "name": "Penetration testing and TVM approval policy"
+  },
+  "preconditions": [
+    "The perception references an authorised assessment scope.",
+    "The source vulnerability finding includes scanner identity, affected endpoint, finding identifier, severity, and detection timestamp."
+  ],
+  "validation_results": [
+    {
+      "validation_type": "precondition",
+      "status": "passed",
+      "summary": "Authorised scope and required source fields are present."
+    },
+    {
+      "validation_type": "schema",
+      "status": "passed",
+      "summary": "The proposed assurance finding payload has required object identity, source, target, severity, and evidence fields."
+    },
+    {
+      "validation_type": "policy",
+      "status": "passed",
+      "summary": "Policy permits staging an assurance finding from a high-confidence vulnerability perception."
+    },
+    {
+      "validation_type": "impact",
+      "status": "warning",
+      "summary": "The command creates a candidate finding only; canonical asset metadata is not overwritten."
+    }
+  ],
+  "impact_summary": "Creates an assurance finding candidate linked to the vulnerable endpoint, source finding, and black-box scan evidence. No canonical asset attributes are modified.",
+  "staged_diff": {
+    "creates": [
+      {
+        "type": "assurance.finding",
+        "id": "finding.assurance.customer_portal_tls.20260512.001",
+        "name": "Customer portal TLS vulnerability finding",
+        "status": "proposed",
+        "severity": "high"
+      }
+    ],
+    "relationships": [
+      {
+        "relationship_type": "evidences",
+        "source_ref": {
+          "type": "evidence.record",
+          "id": "evidence.assetsInteractor.blackbox.20260512.001",
+          "canonical_key": "evidence.assetsInteractor.blackbox.20260512.001",
+          "name": "Black-box scan evidence"
+        },
+        "target_ref": {
+          "type": "assurance.finding",
+          "id": "finding.assurance.customer_portal_tls.20260512.001",
+          "canonical_key": "finding.assurance.customer_portal_tls.20260512.001",
+          "name": "Customer portal TLS vulnerability finding"
+        },
+        "confidence": 0.86
+      }
+    ]
+  },
+  "state_history": [
+    {
+      "state": "proposed",
+      "changed_at": "2026-05-12T00:36:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.concept.security.001",
+        "canonical_key": "agent.concept.security.001",
+        "name": "Security ConceptAgent"
+      }
+    },
+    {
+      "state": "precondition_validated",
+      "changed_at": "2026-05-12T00:37:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.tester.security.001",
+        "canonical_key": "agent.tester.security.001",
+        "name": "Security TestAgent"
+      }
+    },
+    {
+      "state": "schema_validated",
+      "changed_at": "2026-05-12T00:38:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.tester.security.001",
+        "canonical_key": "agent.tester.security.001",
+        "name": "Security TestAgent"
+      }
+    },
+    {
+      "state": "policy_validated",
+      "changed_at": "2026-05-12T00:39:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      }
+    },
+    {
+      "state": "impact_analysed",
+      "changed_at": "2026-05-12T00:40:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      }
+    },
+    {
+      "state": "staged",
+      "changed_at": "2026-05-12T00:41:00Z",
+      "changed_by_ref": {
+        "type": "agent.agent",
+        "id": "agent.operator.security.001",
+        "canonical_key": "agent.operator.security.001",
+        "name": "Security OperatorAgent"
+      }
+    }
+  ],
+  "status": "staged",
+  "created_at": "2026-05-12T00:36:00Z",
+  "payload": {
+    "object_type": "assurance.finding",
+    "proposed_object": {
+      "id": "finding.assurance.customer_portal_tls.20260512.001",
+      "name": "Customer portal TLS vulnerability finding",
+      "finding_type": "technical_vulnerability",
+      "severity": "high",
+      "affected_asset_ref": {
+        "type": "asset.external_endpoint",
+        "id": "asset.endpoint.customer_portal_https",
+        "canonical_key": "asset.endpoint.customer_portal_https",
+        "name": "Customer portal HTTPS endpoint"
+      },
+      "evidence_refs": [
+        {
+          "type": "evidence.record",
+          "id": "evidence.assetsInteractor.blackbox.20260512.001",
+          "canonical_key": "evidence.assetsInteractor.blackbox.20260512.001",
+          "name": "Black-box scan evidence"
+        }
+      ]
+    }
+  }
+}

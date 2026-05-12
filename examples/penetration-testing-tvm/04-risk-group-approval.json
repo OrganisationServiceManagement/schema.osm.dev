@@ -1,0 +1,89 @@
+{
+  "id": "55555555-0000-4000-8000-000000000001",
+  "type": "governance.approval",
+  "canonical_key": "approval.risk_group.customer_portal_external_exposure.2026q2",
+  "approval_type": "approval.risk_group_selection",
+  "approval_scope": "risk_group_selection",
+  "use_case_ref": {
+    "type": "operation.use_case",
+    "id": "11111111-0000-4000-8000-000000000002",
+    "canonical_key": "technical_security.penetration_testing_vulnerability_management.end_to_end",
+    "name": "End-to-end penetration testing and technical vulnerability management"
+  },
+  "subject_ref": {
+    "type": "risk.relative_group",
+    "id": "risk_group.customer_portal_external_exposure.2026q2",
+    "canonical_key": "risk_group.customer_portal_external_exposure.2026q2",
+    "name": "Customer portal external exposure risk group"
+  },
+  "command_refs": [
+    {
+      "type": "schema.command",
+      "id": "44444444-0000-4000-8000-000000000002",
+      "canonical_key": "command.propose_relative_risk_group.customer_portal_exposure.20260512.001",
+      "name": "Propose customer portal external exposure risk group"
+    }
+  ],
+  "policy_ref": {
+    "type": "governance.policy",
+    "id": "policy.penetration_testing_tvm.approval.v1",
+    "canonical_key": "policy.penetration_testing_tvm.approval.v1",
+    "name": "Penetration testing and TVM approval policy"
+  },
+  "status": "approved",
+  "requested_by_ref": {
+    "type": "agent.agent",
+    "id": "agent.operator.security.001",
+    "canonical_key": "agent.operator.security.001",
+    "name": "Security OperatorAgent"
+  },
+  "requested_at": "2026-05-12T00:50:00Z",
+  "decider_refs": [
+    {
+      "type": "identity.person",
+      "id": "person.security_decider.001",
+      "canonical_key": "person.security_decider.001",
+      "name": "Security Decider"
+    },
+    {
+      "type": "identity.person",
+      "id": "person.service_owner.customer_portal",
+      "canonical_key": "person.service_owner.customer_portal",
+      "name": "Customer Portal Service Owner"
+    }
+  ],
+  "decision_records": [
+    {
+      "decider_ref": {
+        "type": "identity.person",
+        "id": "person.security_decider.001",
+        "canonical_key": "person.security_decider.001",
+        "name": "Security Decider"
+      },
+      "decision": "approved",
+      "decided_at": "2026-05-12T01:05:00Z",
+      "rationale": "The black-box evidence and candidate context are sufficient to select this group as the mitigation-planning target."
+    },
+    {
+      "decider_ref": {
+        "type": "identity.person",
+        "id": "person.service_owner.customer_portal",
+        "canonical_key": "person.service_owner.customer_portal",
+        "name": "Customer Portal Service Owner"
+      },
+      "decision": "approved",
+      "decided_at": "2026-05-12T01:08:00Z",
+      "rationale": "The customer portal endpoint is business-owned and the proposed group aligns to a feasible remediation boundary.",
+      "conditions": [
+        "Mitigation plans must include a black-box retest and rollback or recovery notes."
+      ]
+    }
+  ],
+  "approved_at": "2026-05-12T01:08:00Z",
+  "valid_until": "2026-08-12T01:08:00Z",
+  "rationale": "The selected risk group represents the most immediate externally observable exposure path for the customer portal scope.",
+  "conditions": [
+    "Material new perceptions that change the basis of the group return the group to under_review.",
+    "Approval of the risk group does not approve every mitigation plan."
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.osm.dev/schemas/common.schema.json",
+  "title": "OSM common schema primitives",
+  "type": "object",
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    },
+    "date_time": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
+    "canonical_key": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "markdown": {
+      "type": "string",
+      "minLength": 1
+    },
+    "type_ref": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^[A-Za-z][A-Za-z0-9_]*(\\.[A-Za-z][A-Za-z0-9_]*)+$"
+    },
+    "domain_ref": {
+      "type": "string",
+      "enum": [
+        "identity",
+        "operation",
+        "asset",
+        "governance",
+        "risk",
+        "control",
+        "compliance",
+        "evidence",
+        "assurance",
+        "continuity",
+        "integration",
+        "schema",
+        "automation",
+        "perception",
+        "agent",
+        "telemetry"
+      ]
+    },
+    "trigger_type": {
+      "type": "string",
+      "enum": [
+        "event",
+        "schedule",
+        "perception",
+        "manual_request",
+        "agent_initiated",
+        "webhook",
+        "polling",
+        "batch"
+      ]
+    },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "test",
+        "active",
+        "under_review",
+        "proposed",
+        "approved",
+        "established",
+        "monitoring",
+        "completed",
+        "failed",
+        "paused",
+        "superseded",
+        "retired"
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "ref": {
+      "type": "object",
+      "required": [
+        "type",
+        "id"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/type_ref"
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "canonical_key": {
+          "$ref": "#/$defs/canonical_key"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "command_type": {
+      "type": "string",
+      "enum": [
+        "schema.command.propose_object",
+        "schema.command.update_object",
+        "schema.command.propose_relationship",
+        "schema.command.attach_evidence",
+        "schema.command.classify_event",
+        "schema.command.create_finding",
+        "schema.command.propose_requirement",
+        "schema.command.propose_control_mapping",
+        "schema.command.propose_risk",
+        "schema.command.propose_treatment",
+        "schema.command.create_task",
+        "schema.command.request_human_approval",
+        "schema.command.fork_object",
+        "schema.command.coalesce_objects",
+        "schema.command.propose_relative_risk_group",
+        "schema.command.submit_risk_group_for_review",
+        "schema.command.approve_risk_group",
+        "schema.command.reject_risk_group",
+        "schema.command.propose_activity_set",
+        "schema.command.optimise_activity_set",
+        "schema.command.propose_plan",
+        "schema.command.approve_plan",
+        "schema.command.establish_monitoring_profile",
+        "schema.command.mark_object_absent_candidate"
+      ]
+    },
+    "perception_type": {
+      "type": "string",
+      "enum": [
+        "classification",
+        "anomaly",
+        "risk",
+        "relationship",
+        "evidence",
+        "requirement",
+        "control",
+        "dependency",
+        "change",
+        "incident",
+        "perception.asset_detected",
+        "perception.asset_changed",
+        "perception.asset_removed_candidate",
+        "perception.service_detected",
+        "perception.data_store_detected",
+        "perception.identity_detected",
+        "perception.access_grant_detected",
+        "perception.privileged_access_detected",
+        "perception.external_sharing_detected",
+        "perception.public_endpoint_detected",
+        "perception.public_exposure_detected",
+        "perception.attack_surface_detected",
+        "perception.reachable_service_detected",
+        "perception.vulnerability_detected",
+        "perception.exploitability_candidate_detected",
+        "perception.misconfiguration_detected",
+        "perception.control_gap_detected",
+        "perception.control_effectiveness_candidate_detected",
+        "perception.dependency_detected",
+        "perception.ownership_candidate_detected",
+        "perception.business_service_candidate_detected",
+        "perception.evidence_candidate_detected",
+        "perception.relative_risk_group_candidate_detected",
+        "perception.mitigation_activity_candidate_detected"
+      ]
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "claim_type",
+        "predicate",
+        "confidence"
+      ],
+      "properties": {
+        "claim_type": {
+          "$ref": "#/$defs/canonical_key"
+        },
+        "subject_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "predicate": {
+          "$ref": "#/$defs/canonical_key"
+        },
+        "object_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "value": {},
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "relationship": {
+      "type": "object",
+      "required": [
+        "relationship_type",
+        "source_ref",
+        "target_ref"
+      ],
+      "properties": {
+        "relationship_type": {
+          "$ref": "#/$defs/canonical_key"
+        },
+        "source_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "target_ref": {
+          "$ref": "#/$defs/ref"
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
